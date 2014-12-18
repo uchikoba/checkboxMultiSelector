@@ -30,6 +30,25 @@
 
       lastChecked = this;
     });
+    $('label').click(function (e) {
+      var for_id = $(this).attr('for');
+      if (for_id != undefined && for_id != '') {
+        var dest_obj = $('#' + for_id);
+        if (!lastChecked) {
+          lastChecked = dest_obj;
+          return;
+        }
+
+        if (e.shiftKey) {
+          var start = $checkBoxes.index(dest_obj);
+          var end   = $checkBoxes.index(lastChecked);
+
+          $checkBoxes
+            .slice(Math.min(start, end), Math.max(start, end) + 1)
+            .attr('checked', lastChecked.checked);
+        }
+      }
+    });
     return(this);
   };
 })(jQuery);
